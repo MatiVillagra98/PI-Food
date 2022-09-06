@@ -5,9 +5,14 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('recipe', {
     id: {
-      type: DataTypes.STRING(3),
+      type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
+      autoincrement: true,
+      get() {
+        const rawValue = this.getDataValue('id');
+        return rawValue + 'db'
+      }
     },
     name: {
       type: DataTypes.STRING,
