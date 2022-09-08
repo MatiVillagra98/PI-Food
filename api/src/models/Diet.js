@@ -9,7 +9,8 @@ module.exports = (sequelize) => {
             autoIncrement: true
         },
         name: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            defaultValue: 'Dieta no especificada'
         }
     },
     {

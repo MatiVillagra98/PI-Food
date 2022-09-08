@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const capitalize = require('../capitalize')
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 
@@ -16,6 +17,9 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      set(value) {
+        this.setDataValue('name', capitalize(value))
+      }
     },
     resume: {
       type: DataTypes.TEXT,
@@ -23,9 +27,11 @@ module.exports = (sequelize) => {
     },
     health_score: {
       type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     preparation: {
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
+      defaultValue: 'La preparacion de la receta no fue especificada'
     }
   },
   {
