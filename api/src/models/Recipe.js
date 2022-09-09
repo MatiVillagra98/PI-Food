@@ -14,11 +14,11 @@ module.exports = (sequelize) => {
         this.setDataValue('id', value+'db');
       }
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       set(value) {
-        this.setDataValue('name', capitalize(value))
+        this.setDataValue('title', capitalize(value))
       }
     },
     resume: {

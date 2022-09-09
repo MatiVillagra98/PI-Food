@@ -2,7 +2,7 @@ require('dotenv').config();
 const { API_KEY } = process.env;
 const { Op, Diet, Recipe } = require('../../db');
 const axios = require('axios');
-const capitalize = require('../../capitalize')
+const capitalize = require('../../capitalize');
 let createId = 0;
 
 const recipesDetail = async (req, res, next) => {
@@ -24,7 +24,7 @@ const recipesDetail = async (req, res, next) => {
             }
             food = [{
                 img: res.image,
-                name: res.title,
+                title: res.title,
                 type: res.dishTypes,
                 diet: diet,
                 resume: res.summary,
@@ -39,7 +39,7 @@ const recipesDetail = async (req, res, next) => {
         food = await Recipe.findByPk(id, {
             include: [{
                 model: Diet, 
-                attributes: ["name"], 
+                attributes: ["title"], 
                 through: {
                     attributes: []
                 }
@@ -74,7 +74,7 @@ const getRecipes = async (req, res, next) => {
     //Creo un array y meto las comidas de la DB que incluyan el nombre
     const foodListDb = await Recipe.findAll(
         {where: 
-            {name: {
+            {title: {
                 [Op.substring]:`${name}`
             }},
         include: [{
@@ -93,19 +93,21 @@ const getRecipes = async (req, res, next) => {
     else {
         res.status(400).send('Comida no encontrada')
     }
-    console.log(foodListMerge.length)
 };
 
 const createRecipe = async (req, res) => {
-    const { name, resume, health, diet } = req.body;
-    console.log(diet)
-    req.body.id = createId; //Cuento las recetas y agrego el numero siguiente de ID
-    if (!name || !resume || !health) {
-        return res.status(404).send("Falta enviar datos obligatorios");
-    } else {
-        const food = await Recipe.create(req.body);
-        await food.setDiets(diet);
-        res.status(201).send(food)
+    const { title, resume, health, diet } = req.body;
+    req.body.id = createId;
+    try {
+        if (!title || !resume || !health) {
+            return res.status(404).send("Falta enviar datos obligatorios");
+        } else {
+            const food = await Recipe.create(req.body);
+            await food.setDiets(diet);
+            res.status(201).send(food)
+        }
+    } catch (error) {
+        res.status(500).send(error)
     }
     createId++
 };
