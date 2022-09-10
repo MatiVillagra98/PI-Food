@@ -4,6 +4,7 @@ const { Op, Diet, Recipe } = require('../../db');
 const axios = require('axios');
 const capitalize = require('../../capitalize');
 let createId = 0;
+const { createDiets } = require('../diets/controller')
 
 const recipesDetail = async (req, res, next) => {
     const { id } = req.params;
@@ -55,7 +56,7 @@ const recipesDetail = async (req, res, next) => {
 
 
 const getRecipes = async (req, res, next) => {
-    let name = capitalize(req.query.name);
+    let name = req.query.name;
     //Hago los 10 pedidos a la API y meto en array
     let promiseLoop = [];
     for (let i = 0; i < 1; i++){
@@ -63,14 +64,17 @@ const getRecipes = async (req, res, next) => {
         .then(response => response.data)
         .catch(error => next(error));
     };
-    //Creo un array y meto las respuestas de la API que incluyan el nombre
     let foodListApi = [];
     await Promise.all(promiseLoop)
         .then(data => {
             data.map(d => foodListApi = foodListApi.concat(d.results)) //Mapeo las respuestas y concateno los resultados al array de comidas
         })
         .catch(error => next(error));
-    foodListApi = foodListApi.filter(r => r.title.includes(name)) //Filtro las comidas que contienen name
+    if(name) {
+        //Creo un array y meto las respuestas de la API que incluyan el nombre
+        name = capitalize(name)
+        foodListApi = foodListApi.filter(r => r.title.includes(name)) //Filtro las comidas que contienen name
+    }
     //Creo un array y meto las comidas de la DB que incluyan el nombre
     const foodListDb = await Recipe.findAll(
         {where: 
@@ -91,11 +95,16 @@ const getRecipes = async (req, res, next) => {
         res.status(200).send(foodListMerge);
     }
     else {
-        res.status(400).send('Comida no encontrada')
+        let notFound = [{
+            id: 'NotFound',
+            image: 'https://wetaca.com/images/404.png'
+        }];
+        res.send(notFound)
     }
 };
 
 const createRecipe = async (req, res) => {
+    await createDiets();
     const { title, resume, health, diet } = req.body;
     req.body.id = createId;
     try {
@@ -110,6 +119,7 @@ const createRecipe = async (req, res) => {
         res.status(500).send(error)
     }
     createId++
+    console.log(createId)
 };
 
 module.exports = {

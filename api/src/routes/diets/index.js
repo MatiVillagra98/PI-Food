@@ -3,6 +3,6 @@ const dietController = require('./controller')
 
 const router = Router();
 
-router.get('/', dietController);
+router.get('/', dietController.getDiets);
 
 module.exports = router;
