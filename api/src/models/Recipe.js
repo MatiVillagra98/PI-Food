@@ -21,17 +21,21 @@ module.exports = (sequelize) => {
         this.setDataValue('title', capitalize(value))
       }
     },
-    resume: {
+    summary: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    health_score: {
+    healthScore: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    preparation: {
+    analyzedInstructions: {
       type: DataTypes.TEXT,
       defaultValue: 'La preparacion de la receta no fue especificada'
+    },
+    image: {
+      type: DataTypes.STRING,
+      defaultValue: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM6LCpvNpADZtNOENeMttyohIv3ooZUIzWuw&usqp=CAU'
     }
   },
   {

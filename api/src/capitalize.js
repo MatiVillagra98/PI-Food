@@ -4,5 +4,12 @@ function capitalize(value) {
     return capitalWord;
 };
 
+function repetidos(valor) {
+    for (let i = 0; i < valor.length; i++) {
+        for (let i = 0; i < valor.length; i++) {
+            
+        }
+    }
+}
 
 module.exports = capitalize;

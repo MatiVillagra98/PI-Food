@@ -28,7 +28,7 @@ const recipesDetail = async (req, res, next) => {
                 title: res.title,
                 type: res.dishTypes,
                 diet: diet,
-                resume: res.summary,
+                summary: res.summary,
                 health: res.healthScore,
                 steps: res.analyzedInstructions[0].steps
             }]
@@ -59,36 +59,48 @@ const getRecipes = async (req, res, next) => {
     let name = req.query.name;
     //Hago los 10 pedidos a la API y meto en array
     let promiseLoop = [];
-    for (let i = 0; i < 1; i++){
+    for (let i = 0; i < 2; i++){
         promiseLoop[i] = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&offset=${i}&addRecipeInformation=true`)
         .then(response => response.data)
-        .catch(error => next(error));
+        .catch(error => console.log(error));
     };
     let foodListApi = [];
+
     await Promise.all(promiseLoop)
         .then(data => {
-            data.map(d => foodListApi = foodListApi.concat(d.results)) //Mapeo las respuestas y concateno los resultados al array de comidas
+            data.map(d => {
+                for (let i = 0; i < d.results.length; i++) {
+                    d.results[i].diets = d.results[i].diets.map(d => capitalize(d))  
+                    foodListApi.push(d.results[i])            
+                }
+            }) //Mapeo las respuestas y concateno los resultados al array de comidas
+            
         })
         .catch(error => next(error));
-    if(name) {
-        //Creo un array y meto las respuestas de la API que incluyan el nombre
-        name = capitalize(name)
-        foodListApi = foodListApi.filter(r => r.title.includes(name)) //Filtro las comidas que contienen name
-    }
-    //Creo un array y meto las comidas de la DB que incluyan el nombre
-    const foodListDb = await Recipe.findAll(
-        {where: 
-            {title: {
-                [Op.substring]:`${name}`
-            }},
-        include: [{
-            model: Diet, 
+
+    let foodListDb = await Recipe.findAll(
+        {include: [{
+            model: Diet,
+            as: 'diet',
             attributes: ["name"], 
             through: {
                 attributes: []
             }
-        }]}
-    );
+        }]}, 
+    )
+    const dietsToArray = []
+    for (let i = 0; i < foodListDb.length; i++) {
+        const diets = foodListDb[i].diet
+        diets.map(d => dietsToArray.push(d.dataValues.name))
+        foodListDb[i].dataValues.diets = dietsToArray;
+    }
+
+    if(name) {
+        //Creo un array y meto las respuestas de la API que incluyan el nombre
+        name = capitalize(name)
+        foodListApi = foodListApi.filter(r => r.title.includes(name)) //Filtro las comidas que contienen name
+        foodListDb = foodListDb.filter(r => r.title.includes(name))
+    }
     //Uno el array de API con DB
     const foodListMerge = foodListApi.concat(foodListDb);
     if(foodListMerge.length != 0) {
@@ -105,21 +117,20 @@ const getRecipes = async (req, res, next) => {
 
 const createRecipe = async (req, res) => {
     await createDiets();
-    const { title, resume, health, diet } = req.body;
+    const { title, summary, health, diet } = req.body;
     req.body.id = createId;
     try {
-        if (!title || !resume || !health) {
+        if (!title || !summary || !health) {
             return res.status(404).send("Falta enviar datos obligatorios");
         } else {
             const food = await Recipe.create(req.body);
-            await food.setDiets(diet);
+            await food.setDiet(diet);
             res.status(201).send(food)
         }
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send(console.log(error))
     }
     createId++
-    console.log(createId)
 };
 
 module.exports = {
