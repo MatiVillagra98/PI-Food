@@ -2,7 +2,7 @@ require('dotenv').config();
 const { API_KEY } = process.env;
 const { Op, Diet, Recipe } = require('../../db');
 const axios = require('axios');
-const capitalize = require('../../capitalize');
+const { capitalize, repetidos } = require('../../functions');
 let createId = 0;
 const { createDiets } = require('../diets/controller')
 
@@ -15,9 +15,9 @@ const recipesDetail = async (req, res, next) => {
         await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
         .then(response => response.data)
         .then(res => {
-            //Uso el array de las diets de la res
+            //Uso el array de las diets de la respuesta
             diet = res.diets;  
-            //Itera en cada propiedad de res y pusheo las dietas true que no esten agregadas
+            //Itera en cada propiedad de respuesta y pusheo las dietas true que no esten agregadas
             for (const property in res) {      
                 if ( res[property] === true && !diet.includes(property) ){
                     diet.push(property)
@@ -59,7 +59,7 @@ const getRecipes = async (req, res, next) => {
     let name = req.query.name;
     //Hago los 10 pedidos a la API y meto en array
     let promiseLoop = [];
-    for (let i = 0; i < 2; i++){
+    for (let i = 0; i < 1; i++){
         promiseLoop[i] = await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&offset=${i}&addRecipeInformation=true`)
         .then(response => response.data)
         .catch(error => console.log(error));
@@ -70,11 +70,12 @@ const getRecipes = async (req, res, next) => {
         .then(data => {
             data.map(d => {
                 for (let i = 0; i < d.results.length; i++) {
-                    d.results[i].diets = d.results[i].diets.map(d => capitalize(d))  
-                    foodListApi.push(d.results[i])            
+                    d.results[i].diets = d.results[i].diets.map(d => capitalize(d)) 
+                    if(!repetidos(foodListApi, d.results[i])) { //Funcion repetidos para meter los que no estan
+                        foodListApi.push(d.results[i])  
+                    } 
                 }
-            }) //Mapeo las respuestas y concateno los resultados al array de comidas
-            
+            })
         })
         .catch(error => next(error));
 
@@ -111,7 +112,7 @@ const getRecipes = async (req, res, next) => {
             id: 'NotFound',
             image: 'https://wetaca.com/images/404.png'
         }];
-        res.send(notFound)
+        res.status(200).send(notFound)
     }
 };
 

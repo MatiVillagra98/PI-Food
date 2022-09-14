@@ -13,7 +13,7 @@ const createDiets = async () => {
             {name: 'Paleo'},
             {name: 'Primal'},
             {name: 'Low FODMAP'},
-            {name: 'Whole30'}
+            {name: 'Whole 30'}
         ];
         diets = await diets.map(d => Diet.create(d));
         return diets;
@@ -22,9 +22,9 @@ const createDiets = async () => {
 
 const getDiets = async ( req, res, next ) => {
     try {
-        this.createDiets();
+        this.createDiets;
     } catch (error) {
-        next(error)
+        console.log(error)
     }
     const dietsList = await Diet.findAll({attributes: ['name']});
     res.status(200).send(dietsList)
