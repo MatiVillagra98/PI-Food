@@ -1,9 +1,11 @@
 import './App.css';
+import { Route } from "react-router-dom";
+import Recipe from './components/Recipe/Recipe';
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Food</h1>
+      <Route exact path = '/' component={Recipe}/>
     </div>
   );
 }
