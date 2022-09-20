@@ -22,7 +22,7 @@ function rootReducer(state = initialState, action) {
         case GET_RECIPE_DETAIL:
             return {
                 ...state,
-                recipes: action.payload
+                recipeDetail: action.payload
             }
         case CREATE_RECIPE:
             return {

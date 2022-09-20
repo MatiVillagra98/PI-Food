@@ -5,7 +5,7 @@ import FilterDiets from '../FilterDiets/FilterDiets';
 import ToggleButton from '../Toggle/ToggleButton';
 import Paginated from '../Pagination/Pagination';
 
-const Recipe = (props) => {
+const Recipe = () => {
 
     const dispatch = useDispatch();
     const recipes = useSelector(state => state.recipes)
@@ -17,7 +17,7 @@ const Recipe = (props) => {
         dispatch(getDiets())
         dispatch(getRecipes())
         .catch(error => console.log(error))
-    },[dispatch]);
+    },[dispatch]);//eslint-disable-line
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -37,8 +37,7 @@ const Recipe = (props) => {
             </form>
         <FilterDiets setState={setFilterFood} state={filterFood} recipes={recipes} />
         <ToggleButton setFood={setFilterFood} filterFood={filterFood} setOrder={setOrder} order={order} recipes={recipes} />
-        <Paginated filterFood={filterFood} recipes={recipes} order={order} />
-
+        <Paginated filterFood={filterFood} recipes={recipes} order={order}/>
         </div>
     );
 }

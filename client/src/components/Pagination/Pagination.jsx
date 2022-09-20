@@ -28,34 +28,35 @@ const Paginated = (props) => {
         setPaginated({page: prevPage, toShow: [...recipesToShow].splice(firstIndex, 9)});
     };
 
-    // React.useEffect(() => {
-    //     prevPage()
-    // },[props.order]);
+    React.useEffect(() => {
+        setPaginated({...paginated, toShow: [...props.filterFood].splice(0, 9)})
+        prevPage()
+    },[props.filterFood, props.order]); //eslint-disable-line
 
 
     function recipesMap() {
         if (paginated.toShow.length !== 0) {
             return (
                 paginated.toShow.map((r) =>
-                <RecipeCard key={r.id} image={r.image} title={r.title} diets={r.diets} />
+                <RecipeCard key={r.id} id={r.id} image={r.image} title={r.title} diets={r.diets} />
             ))
         }
         else {
             return(
-                recipesToShow.length && [...recipesToShow].splice(0, 9).map((r) =>
-                <RecipeCard key={r.id} image={r.image} title={r.title} diets={r.diets} />
+                recipesToShow.length && [...recipesToShow].splice(0, 9).map(r =>
+                <RecipeCard key={r.id} id={r.id} image={r.image} title={r.title} diets={r.diets} />
             ));
         };
     };
 
     return(
         <div>
-            <h1>Page {actualPage} of {totalPages}</h1>
-            <button onClick={ prevPage }>Back</button>
-            <button onClick={ nextPage }>Go</button>
             <div>
-                { recipesMap() }
+                {recipesMap()}
             </div>
+            <h1>Page {actualPage} of {totalPages}</h1>
+            <button onClick={prevPage}>Back</button>
+            <button onClick={nextPage}>Go</button>
         </div>
     )
 }
