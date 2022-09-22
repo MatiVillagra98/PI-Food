@@ -1,5 +1,5 @@
 import React from 'react';
-import PaginationSteps from './PaginarionSteps';
+import PaginationSteps from './PaginationSteps';
 
 
 const DetailCard = (props) => {
