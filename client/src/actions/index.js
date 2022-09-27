@@ -46,7 +46,8 @@ export function getRecipeDetail(id) {
     };
 };
 
-export function createRecipe(values) {
+export function createRecipe(values, diets) {
+    values.diet = diets
     return function(dispatch) {
         return axios.post(`http://localhost:3001/recipes`, values)
         .then(response => response.data)

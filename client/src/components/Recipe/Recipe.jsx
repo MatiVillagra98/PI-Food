@@ -1,9 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRecipes, getDiets } from '../../actions/index';
+import { getRecipes } from '../../actions/index';
 import FilterDiets from '../FilterDiets/FilterDiets';
 import ToggleButton from '../Toggle/ToggleButton';
 import Paginated from '../Pagination/Pagination';
+import NavBar from '../NavBar/NavBar';
+import './Recipe.css';
 
 const Recipe = () => {
 
@@ -14,7 +16,6 @@ const Recipe = () => {
     const [order, setOrder] = React.useState(true)
 
     React.useEffect(() => {
-        dispatch(getDiets())
         dispatch(getRecipes())
         .catch(error => console.log(error))
     },[dispatch]);//eslint-disable-line
@@ -29,15 +30,24 @@ const Recipe = () => {
         setState({...state, name: event.target.value });
     }
 
+
+
     return (
-        <div>
+        <div className='recipe'>
+            <div><NavBar/></div>
             <form onSubmit={handleSubmit}>
                 <input name='buscar' placeholder="Buscar" onChange={handleChange}></input>
                 <button>Buscar</button>
             </form>
-        <FilterDiets setState={setFilterFood} state={filterFood} recipes={recipes} />
-        <ToggleButton setFood={setFilterFood} filterFood={filterFood} setOrder={setOrder} order={order} recipes={recipes} />
-        <Paginated filterFood={filterFood} recipes={recipes} order={order}/>
+            <div className='filters'>
+                <input type="checkbox" id="show" />
+                <label for="show" className='btn-show'>Filtrar^</label>
+                <div className='hidden'>
+                    <FilterDiets setState={setFilterFood} state={filterFood} recipes={recipes}/>
+                    <ToggleButton setFood={setFilterFood} filterFood={filterFood} setOrder={setOrder} order={order} recipes={recipes} />
+                </div>
+            </div>
+            <Paginated filterFood={filterFood} recipes={recipes} order={order}/>
         </div>
     );
 }

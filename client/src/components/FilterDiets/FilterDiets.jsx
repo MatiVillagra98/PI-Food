@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import './FilterDiets.css'
 
 let diet = [];
 let filtered = [];
@@ -43,11 +44,11 @@ const FilterDiets = (props) => {
 
     return (            
 
-        <div>
+        <div className='diets'>
             {diets.map((d, index) => 
             <div key={index} >
-                <input type="checkbox" value={d.name} onChange={handleChange}/> 
-                <label>{d.name}</label>
+                <input type="checkbox" id={d.name} value={d.name} onChange={handleChange}/> 
+                <label for={d.name}>{d.name}</label>
             </div>)}
         </div>
     )

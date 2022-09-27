@@ -1,0 +1,41 @@
+
+.background{
+    font-family: 'Fredericka the Great';
+    height: 100%; 
+    margin: 0;
+    padding: 0;
+    background-image: url('https://static.vecteezy.com/system/resources/previews/005/276/354/original/seamless-pattern-pizza-ingredients-background-tomato-garlic-basil-olive-pepper-mushroom-vector.jpg');
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.intro {
+    background-color: #ffffff30;
+    backdrop-filter: blur(2px);
+    font-size: 5vh;
+    width: 100%;
+    height: 25%;
+    display: flex;  
+    flex-direction: column;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    padding-bottom: 2%;
+}
+
+h1{
+    margin: 1%;
+}
+
+.home {
+    font-family: 'Fredericka the Great';
+    align-self: center;
+    height: 7vh;
+    width: 17vh;
+    background-color: rgba(48, 48, 48, 0.644);
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 4vh;
+}
+

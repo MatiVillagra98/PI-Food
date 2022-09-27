@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getRecipes, getDiets } from '../../actions/index';
+import './LandingPage.css'
 
 const Landing = () => {
     const dispatch = useDispatch();
@@ -12,8 +14,13 @@ const Landing = () => {
     },[dispatch]);
 
     return (
-        <div>
-            <div>Landing Page</div>
+        <div className='background'>
+            <div className='intro'>
+                <h1>PI FOOD</h1>
+                <Link to='/home'>
+                    <button className='home'>HOME</button>
+                </Link>
+            </div>
         </div>
     )
 }

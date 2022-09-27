@@ -24,10 +24,10 @@ const recipesDetail = async (req, res, next) => {
                 }
             }
             food = [{
-                img: res.image,
+                image: res.image,
                 title: res.title,
                 type: res.dishTypes,
-                diet: diet,
+                diets: diet.map(d => capitalize(d)),
                 summary: res.summary,
                 health: res.healthScore,
                 steps: res.analyzedInstructions[0].steps
@@ -37,15 +37,24 @@ const recipesDetail = async (req, res, next) => {
     } 
     //Si id es string busca en la DB
     else {
-        food = await Recipe.findByPk(id, {
+        food.push(await Recipe.findByPk(id, {
             include: [{
                 model: Diet, 
-                attributes: ["title"], 
+                as: 'diet',
+                attributes: ["name"], 
                 through: {
-                    attributes: []
+                  attributes: []
                 }
             }]
-        });
+        }))
+        const dietsToArray = []
+        const diets = food[0].diet
+        diets.map(d => dietsToArray.push(d.dataValues.name))
+        food[0].dataValues.diets = dietsToArray;
+        const stepsToArray = [];
+        food[0].steps.map(s => stepsToArray.push(JSON.parse(s)))
+        food[0].steps = stepsToArray
+
     }
     if(!food){
         next('Error en la base de Datos')
@@ -11392,16 +11401,15 @@ const getRecipes = async (req, res, next) => {
         // })
         // .catch(error => next(error));
 
-    let foodListDb = await Recipe.findAll(
-        {include: [{
-            model: Diet,
-            as: 'diet',
-            attributes: ["name"], 
-            through: {
-                attributes: []
-            }
-        }]}, 
-    )
+    let foodListDb = await Recipe.findAll({
+      include: [{
+      model: Diet,
+      as: 'diet',
+      attributes: ["name"], 
+      through: {
+          attributes: []
+      }
+    }]})
     for (let i = 0; i < foodListDb.length; i++) {
       const dietsToArray = []
       const diets = foodListDb[i].diet

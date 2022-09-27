@@ -23,7 +23,7 @@ const createDiets = async () => {
 
 const getDiets = async ( req, res, next ) => {
     try {
-        this.createDiets;
+        createDiets()
     } catch (error) {
         console.log(error)
     }

@@ -1,0 +1,15 @@
+.navbar {
+    display: flex;
+    margin: 0px;
+    background-color: rgba(180, 180, 180, 0.658);
+    height: 8vh;
+}
+
+button {
+    font-family: 'Fredericka the Great';
+}
+
+img {
+    height: 90px;
+    width: 90px;
+}

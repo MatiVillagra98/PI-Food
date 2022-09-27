@@ -25,13 +25,13 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    healthScore: {
+    health: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    analyzedInstructions: {
-      type: DataTypes.TEXT,
-      defaultValue: 'La preparacion de la receta no fue especificada'
+    steps: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      defaultValue: ['La preparacion de la receta no fue especificada']
     },
     image: {
       type: DataTypes.STRING,
