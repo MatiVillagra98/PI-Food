@@ -1,0 +1,59 @@
+.link {
+    text-decoration: none;
+}
+
+.card {
+    background-color: rgba(223, 223, 223, 0.301);
+    width: 50vh;
+    border-radius: 7px;
+    font-family: 'Fredericka the Great';
+    padding: 15px;
+    margin: 10px;
+    color: black;
+    cursor: pointer;
+    text-align: -webkit-center;
+}
+
+.card img {
+    margin: 1vh;
+    height: 35vh;
+    width: 35vh;
+    border-radius: 7px;
+    border: groove;
+    border-color: rgba(0, 0, 0, 0.459);
+}
+
+.card h2 {
+    background-color: rgba(241, 241, 241, 0.685);
+    border-radius: 7px;
+    padding: 1vh;
+    margin: 0;
+}
+
+.card p {
+    background-color: rgba(241, 241, 241, 0.781);
+    margin: 0;
+    border-radius: 7px;
+    font-size: 2.5vh;
+    width: 40vh;
+}
+
+@media only screen and (max-width: 800px) {
+
+    .card {
+        padding: 10px;
+        margin: 5px;
+    }
+
+}
+
+@media only screen and (max-width: 500px) {
+
+    .card {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 5px;
+        padding: 0;
+    }
+
+}

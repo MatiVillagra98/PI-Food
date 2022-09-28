@@ -24,7 +24,7 @@ export default function NavBar() {
     return (
         <header className='navbar'>
             <nav>
-                <ul>
+                <ul className='links'>
                     <Link to='/home'>
                         <button className='btn' name='home' onClick={isSelected}>HOME</button>
                     </Link>
@@ -33,8 +33,8 @@ export default function NavBar() {
                     </Link>
                 </ul>
             </nav>
-            <Link to='/'>
-                <img src='logo.png' alt='PI FOOD'/>
+            <Link to='/' className='change'>
+                <img src='logo.png' alt='PI FOOD' className='logo-black'/>
             </Link>
         </header>
     )

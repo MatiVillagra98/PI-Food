@@ -1,5 +1,33 @@
 .diets {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.diets input {
+    width: 2.4vh;
+    height: 2.4vh;
+}
+
+@media only screen and (max-width: 800px) {
+
+    .diets {
+        font-size: 3.3vh;
+    }
+
+    .diets input {
+        width: 3vh;
+        height: 3vh;
+        margin-bottom: 1vh;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+
+    .diets {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

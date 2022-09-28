@@ -35,13 +35,13 @@ const Recipe = () => {
     return (
         <div className='recipe'>
             <div><NavBar/></div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='search'>
                 <input name='buscar' placeholder="Buscar" onChange={handleChange}></input>
                 <button>Buscar</button>
             </form>
             <div className='filters'>
                 <input type="checkbox" id="show" />
-                <label for="show" className='btn-show'>Filtrar^</label>
+                <label for="show" className='btn-show'><span>Filtrar</span></label>
                 <div className='hidden'>
                     <FilterDiets setState={setFilterFood} state={filterFood} recipes={recipes}/>
                     <ToggleButton setFood={setFilterFood} filterFood={filterFood} setOrder={setOrder} order={order} recipes={recipes} />

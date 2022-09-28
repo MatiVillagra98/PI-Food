@@ -1,15 +1,60 @@
 .navbar {
     display: flex;
     margin: 0px;
+    padding: 1vh;
     background-color: rgba(180, 180, 180, 0.658);
     height: 8vh;
-}
-
-button {
-    font-family: 'Fredericka the Great';
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
 }
 
 img {
-    height: 90px;
-    width: 90px;
+    position: relative;
+    top: 2px;
+    height: 8vh;
+    width: 8vh;
+}
+
+.links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+}
+
+.links button {
+    font-family: 'Fredericka the Great';
+    font-size: 2.5vh;
+    height: 5vh;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.671);
+    border-radius: 7px;
+    border-color: rgb(0, 0, 0);
+    overflow: hidden;
+    transition: 0.7s all;
+    margin-left: 1vh;
+}
+
+.links button:hover {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.671);
+    border-color: white;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 800px) {
+
+    .links button{
+        font-size: 2.7vh;
+        height: 7vh;
+        width: 20vh;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+
+    .links {
+        padding: 0;
+    }
 }

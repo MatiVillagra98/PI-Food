@@ -1,5 +1,6 @@
 import React from 'react';
 import RecipeCard from '../RecipeCard/RecipeCard';
+import './Pagination.css'
 
 const Paginated = (props) => {
 
@@ -51,7 +52,7 @@ const Paginated = (props) => {
 
     return(
         <div>
-            <div>
+            <div className='recipes'>
                 {recipesMap()}
             </div>
             <h1>Page {actualPage} of {totalPages}</h1>

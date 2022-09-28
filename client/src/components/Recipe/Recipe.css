@@ -5,38 +5,151 @@
 .hidden {
     background-color: rgba(37, 37, 37, 0.527);
     padding: 1% 1%;
+    overflow: hidden;
     visibility: hidden;
-    width: 27vh;
+    width: 90%;
     height: 0;
+    transition: .4s ease-in-out all;
+    position: relative;
+    border-radius: 7px;
+    border: solid;
+    border-width: 0.5vh;
+    border-color: rgba(36, 36, 36, 0.815);
 }
 
 .filters {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    border-bottom: #ffc000 solid;
+    align-items: flex-end;
+    margin-top: 2vh;
 }
 
 .btn-show {
     font-family: 'Fredericka the Great';
     display: flex;
     background-color: rgb(0, 0, 0);
+    width: 15vh;
     height: 5vh;
-    width: 13vh;
-    padding: 2px;
     color: rgb(226, 226, 226);
     align-items: center;
     justify-content: center;
-    font-size: 3vh;
+    font-size: 2.3vh;
     border-radius: 7px;
+    cursor: pointer;
+}
+
+.btn-show {
+    border-radius: 4px;
+    background-color: rgb(0, 0, 0);
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 2.3vh;
+    transition: all 0.5s;
+    cursor: pointer;
+    width: 15vh;
+    height: 5vh;
+}
+
+.btn-show span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.btn-show span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.btn-show:hover span {
+    padding-right: 25px;
+}
+
+.btn-show:hover span:after {
+    opacity: 1;
+    right: 0;
 }
 
 #show {
     display: none;
 }
 
-#show:checked ~ .hidden {
-    visibility: visible;
-    height: 32.5vh;
+#show:checked ~ .btn-show {
+    background-color: rgb(255, 255, 255);
+    color: rgb(39, 39, 39);
 }
 
+#show:checked ~ .hidden {
+    visibility: visible;
+    height: 14vh;
+    font-size: 3.5vh;
+}
+
+.search {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search button{
+    width: 15vh;
+    height: 5vh;
+    color: rgb(10, 10, 10);
+    font-family: 'Fredericka the Great';
+    font-size: 2.3vh;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.search input {
+    width: 30vh;
+    height: 4vh;
+    border-radius: 7px;
+}
+
+@media only screen and (max-width: 800px) {
+
+    #show:checked ~ .hidden {
+        visibility: visible;
+        height: 21.5vh;
+    }
+
+}
+
+
+@media only screen and (max-width: 450px) {
+
+    .hidden {
+        font-size: 3vh;
+        width: 45vh;
+        top: 0;
+    }
+
+    #show:checked ~ .hidden {
+        visibility: visible;
+        height: 60.4vh;
+    }
+
+    .search button {
+        width: 20vh;
+        height: 6vh;    
+        font-size: 4vh;
+    }
+
+    .search input {
+        width: 30vh;
+        height: 5.1vh;
+        font-size: 3vh;
+    }
+
+    .btn-show {
+        width: 20vh;
+        height: 6vh;
+        font-size: 3.5vh;
+    }
+}

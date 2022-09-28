@@ -1,0 +1,13 @@
+button {
+    height: 5vh;
+    width: 13.5vh;
+}
+
+@media only screen and (max-width: 800px) {
+
+    button {
+        height: 7vh;
+        width: 22vh;
+    }
+
+}
