@@ -10,8 +10,12 @@ const recipesDetail = async (req, res, next) => {
     const { id } = req.params;
     let diet = [];
     let food = [];
+
+    if (id === 'NotFound') {
+      res.status(404)
+    }
     //Si ID es numero busca en la API
-    if (!isNaN(id)) {
+    else if (!isNaN(id)) {
         await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
         .then(response => response.data)
         .then(res => {
@@ -11429,11 +11433,11 @@ const getRecipes = async (req, res, next) => {
         res.status(200).send(foodListMerge);
     }
     else {
-        let notFound = [{
-            id: 'NotFound',
-            image: 'https://wetaca.com/images/404.png'
-        }];
-        res.status(200).send(notFound)
+      let notFound = [{
+        id: 'NotFound',
+        image: 'https://wetaca.com/images/404.png'
+      }];
+      res.send(notFound)
     }
 };
 
