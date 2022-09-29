@@ -1,0 +1,14 @@
+.steps {
+    background-color: rgb(202, 202, 202);
+    width: 75%;
+    border-radius: 10px;
+    font-size: 2vh;
+    border: solid black 1px;
+    padding: 7px;
+}
+
+@media only screen and (max-width: 1020px) {
+    .steps {
+        width: 100%
+    }
+}

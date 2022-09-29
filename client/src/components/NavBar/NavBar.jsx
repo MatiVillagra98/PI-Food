@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getDiets } from '../../actions/index';
+import { getDiets, getRecipes } from '../../actions/index';
 import { useDispatch } from 'react-redux';
 import './NavBar.css'
+import logo from './logo.png'
 
 export default function NavBar() {
-
-    // const [className, setClassName] = React.useState({home: 'notSelected', create:'notSelected'})
 
     const dispatch = useDispatch()
 
@@ -15,10 +14,8 @@ export default function NavBar() {
         .catch(error => console.log(error))
     },[dispatch]);
 
-    function isSelected(e) {
-        // e.target.name === 'home' ? 
-            // setClassName({home: 'isSelected', create: 'notSelected'}) :
-            // setClassName({home: 'notSelected', create: 'isSelected'})
+    function handleClick(e) {
+        dispatch(getRecipes())
     }
 
     return (
@@ -26,15 +23,15 @@ export default function NavBar() {
             <nav>
                 <ul className='links'>
                     <Link to='/home'>
-                        <button className='btn' name='home' onClick={isSelected}>HOME</button>
+                        <button className='btn' onClick={handleClick} name='home'>HOME</button>
                     </Link>
                     <Link to='/createRecipe' name='create' className='btn'>
-                        <button className='btn' name='create' onClick={isSelected}>Crear Receta</button>
+                        <button className='btn' name='create'>Crear Receta</button>
                     </Link>
                 </ul>
             </nav>
             <Link to='/' className='change'>
-                <img src='logo.png' alt='PI FOOD' className='logo-black'/>
+                <img src={logo} alt='PI FOOD' className='logo-black'/>
             </Link>
         </header>
     )

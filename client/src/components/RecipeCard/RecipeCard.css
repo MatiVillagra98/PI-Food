@@ -3,13 +3,12 @@
 }
 
 .card {
-    background-color: rgba(223, 223, 223, 0.301);
+    background-color: rgba(97, 97, 97, 0.781);
     width: 50vh;
     border-radius: 7px;
     font-family: 'Fredericka the Great';
     padding: 15px;
     margin: 10px;
-    color: black;
     cursor: pointer;
     text-align: -webkit-center;
 }
@@ -23,19 +22,22 @@
     border-color: rgba(0, 0, 0, 0.459);
 }
 
-.card h2 {
-    background-color: rgba(241, 241, 241, 0.685);
+.title {
+    background-color: rgba(0, 0, 0, 0.911);
     border-radius: 7px;
     padding: 1vh;
     margin: 0;
+    font-size: 4vh;
+    color: white;
 }
 
-.card p {
-    background-color: rgba(241, 241, 241, 0.781);
+.card h3 {
+    background-color: rgba(245, 245, 245, 0.733);
     margin: 0;
     border-radius: 7px;
     font-size: 2.5vh;
     width: 40vh;
+    color: black;
 }
 
 @media only screen and (max-width: 800px) {

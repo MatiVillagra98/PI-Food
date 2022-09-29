@@ -51,11 +51,11 @@ const Paginated = (props) => {
     };
 
     return(
-        <div>
+        <div className='pagination'>
             <div className='recipes'>
                 {recipesMap()}
             </div>
-            <h1>Page {actualPage} of {totalPages}</h1>
+            <h1 className='text'>Page {actualPage} of {totalPages}</h1>
             <button onClick={prevPage}>Back</button>
             <button onClick={nextPage}>Go</button>
         </div>

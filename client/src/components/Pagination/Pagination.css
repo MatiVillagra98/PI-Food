@@ -3,3 +3,30 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination button {
+    width: 15vh;
+    height: 5vh;
+    color: rgb(10, 10, 10);
+    font-family: 'Fredericka the Great';
+    font-size: 2.3vh;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.text {
+
+    background-color: rgb(202, 202, 202);
+    border-radius: 7px;
+    padding: 4px;
+    font-size: 3vh;
+    border: solid black 1px;
+}

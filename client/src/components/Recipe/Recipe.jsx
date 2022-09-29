@@ -9,9 +9,9 @@ import './Recipe.css';
 
 const Recipe = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
     const recipes = useSelector(state => state.recipes)
-    const [state, setState] = React.useState({name: ' '})
+    const [state, setState] = React.useState({name: ''})
     const [filterFood, setFilterFood] = React.useState([])
     const [order, setOrder] = React.useState(true)
 
@@ -23,6 +23,7 @@ const Recipe = () => {
     function handleSubmit(event) {
         event.preventDefault()
         dispatch(getRecipes(state.name))
+        setState({name: ''})
         setFilterFood([])
     }
 
@@ -30,13 +31,11 @@ const Recipe = () => {
         setState({...state, name: event.target.value });
     }
 
-
-
     return (
         <div className='recipe'>
             <div><NavBar/></div>
             <form onSubmit={handleSubmit} className='search'>
-                <input name='buscar' placeholder="Buscar" onChange={handleChange}></input>
+                <input name='buscar' placeholder='Buscar...' value={state.name} onChange={handleChange}></input>
                 <button>Buscar</button>
             </form>
             <div className='filters'>

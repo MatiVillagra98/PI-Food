@@ -16,7 +16,7 @@ const Landing = () => {
     return (
         <div className='background'>
             <div className='intro'>
-                <h1>PI FOOD</h1>
+                <p>PI FOOD</p>
                 <Link to='/home'>
                     <button className='home'>HOME</button>
                 </Link>

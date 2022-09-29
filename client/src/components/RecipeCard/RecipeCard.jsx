@@ -8,9 +8,9 @@ const RecipeCard = (props) => {
     return (
         <Link to={`/detail/${props.id}`} className='link'>
             <div className='card'>
-                <h2 value={props.title}>{props.title}</h2>
+                <p className='title'value={props.title}>{props.title}</p>
                 <img src={props.image} alt='Img not found'/>
-                {props.diets && props.diets.map(d => <p key={Math.random()}>{d}</p>)}
+                {props.diets && props.diets.map(d => <h3 key={Math.random()}>{d}</h3>)}
             </div>
         </Link>
     );

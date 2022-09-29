@@ -1,10 +1,11 @@
-import { CREATE_RECIPE, GET_DIETS, GET_RECIPES, GET_RECIPE_DETAIL } from "../actions";
+import { CREATE_RECIPE, GET_DIETS, GET_RECIPES, GET_RECIPE_DETAIL, ERROR } from "../actions";
 
 const initialState = {
     recipeDetail: [],
     recipes: [],
     diets: [],
     recipeCreated: [],
+    error: ''
 };
 
 function rootReducer(state = initialState, action) {
@@ -28,6 +29,11 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 recipeCreated: action.payload 
+            }
+        case ERROR: 
+            return {
+                ...state,
+                error: action.payload
             }
         default:
             return state;

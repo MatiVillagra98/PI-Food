@@ -1,4 +1,5 @@
 import React from 'react';
+import './PaginationSteps.css'
 
 const PaginationSteps = (props) => {
 
@@ -30,7 +31,7 @@ const PaginationSteps = (props) => {
     },[props.steps]); //eslint-disable-line
     
     return(
-        <div>
+        <div className='steps'>
             <div>
                 <h2>Step N° {paginated.toShow.number}</h2>
                 <h2>{paginated.toShow.step}</h2>

@@ -1,3 +1,4 @@
+
 const axios = require('axios');
 
 export const GET_RECIPES = 'GET_RECIPES';
@@ -21,7 +22,7 @@ export function getRecipes(name) {
             .then(response => response.data)
             .then(response => {
                 dispatch({ type: GET_RECIPES, payload: response });
-            });
+            })
         };
     }
 };
@@ -42,7 +43,11 @@ export function getRecipeDetail(id) {
         .then(response => response.data)
         .then(response => {
             dispatch({ type: GET_RECIPE_DETAIL, payload: response });
-        });
+        })
+        .catch(response => {
+            dispatch({type: ERROR, payload: response.data})
+            console.log(response.data)
+        })
     };
 };
 

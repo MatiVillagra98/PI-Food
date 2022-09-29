@@ -4,6 +4,7 @@ import Recipe from './components/Recipe/Recipe';
 import Detail from './components/Detail/Detail';
 import CreateRecipe from './components/CreateRecipe/CreateRecipe';
 import Landing from './components/Landing Page/LandingPage';
+import Error404 from './components/Error/404'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route exact path = '/home' component={Recipe} />
       <Route exact path = '/detail/:id' component={Detail}/>
       <Route exact path = '/createRecipe' component={CreateRecipe}/>
+      <Route exact path = '/404' componente={Error404} />
     </div>
   );
 }
