@@ -12,7 +12,7 @@ const DetailCard = (props) => {
                 <span className='summary'>{ReactHtmlParser(props.summary)}</span>
                 {props.type && <h3 className='type'>Type {props.type}</h3>}
                 {props.diets && <div className='diets'>{props.diets.map(d => <h3 className='diet' key={Math.random()}>{d}</h3>)}</div>}
-                <h2 className='health'>Health Level: {props.health}</h2>
+                {props.health && <h2 className='health'>Health Level: {props.health}</h2>}
                 {props.steps && <PaginationSteps steps={props.steps}/>}
             </div>
     );

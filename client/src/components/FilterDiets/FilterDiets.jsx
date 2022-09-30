@@ -44,7 +44,7 @@ const FilterDiets = (props) => {
 
     return (            
 
-        <div className='diets'>
+        <div className='diets-selector'>
             {diets.map((d, index) => 
             <div key={index} >
                 <input type="checkbox" id={d.name} value={d.name} onChange={handleChange}/> 

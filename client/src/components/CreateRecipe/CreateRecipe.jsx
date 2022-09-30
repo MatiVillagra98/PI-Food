@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createRecipe, getDiets } from '../../actions/index';
 import DetailCard from '../DetailCard/DetailCard';
 import NavBar from '../NavBar/NavBar';
+import './CreateRecipe.css'
 
 const CreateRecipe = () => {
 
@@ -21,7 +22,7 @@ const CreateRecipe = () => {
         switch (e.target.name) {
             case 'title':
                 if((!/^[a-zA-Z ]*$/.test(e.target.value)) || e.target.value.length < 2 || e.target.value.length > 25) {
-                    setError({...error, title: 'Debe ser entre 2 y 25 y no contener caracteres'})
+                    setError({...error, title: 'Dato obligatorio, no puede contener caracteres especiales'})
                 } 
                 else {
                     setError({...error, title: ''})
@@ -29,13 +30,13 @@ const CreateRecipe = () => {
                 setRecipe({...recipe, title: e.target.value})
                 break;
             case 'summary':
-                if((!/^[A-Za-z0-9\-:!?¡%$"(),;.ñ ]*$/.test(e.target.value)) || e.target.value.length > 100) {
-                    setError({...error, summary: 'Debe ser menos a 100 y no caracter'})
+                if((!/^[A-Za-z0-9\-:!?¡%$"(),;.ñ ]*$/.test(e.target.value)) || e.target.value.length < 1 || e.target.value.length > 1000) {
+                    setError({...error, summary: 'Dato obligatorio, no puede contener caracteres especiales'})
                 } 
                 else {
-                    setRecipe({...recipe, summary: e.target.value})
                     setError({...error, summary: ''})
                 }
+                setRecipe({...recipe, summary: e.target.value})
                 break;
             case 'health':
                 if(e.target.value > 100 || e.target.value < 0 || e.target.value % 1 !== 0) {
@@ -73,7 +74,7 @@ const CreateRecipe = () => {
     function handleSubmit(e) {
         e.preventDefault()
 
-        if(recipe.title && recipe.health && recipe.summary) {
+        if(recipe.title && recipe.summary) {
 
             for (let i = 4; i <= 15; i++) {
                 e.target[i].checked = false
@@ -99,33 +100,42 @@ const CreateRecipe = () => {
 
 
     return (
-        <div>
+        <div className='create'>
             <div><NavBar/></div>
-            <form onSubmit={handleSubmit}>
-                <input name='title' value={recipe.title} placeholder="Name..." onChange={handleChange}/>
+            <form onSubmit={handleSubmit} className='form'>
+                <h2 className='new'>New Recipe</h2>
+                <label>Name:</label>
+                <input name='title' className={error.title && 'error'} value={recipe.title} placeholder="Name..." onChange={handleChange}/>
                 {!error.title ? null : <span>{error.title}</span>}
-                <input name='summary' value={recipe.summary} placeholder="Summary..." onChange={handleChange}/>
+                <label>Summary:</label>
+                <input name='summary' className={error.summary && 'error'} value={recipe.summary} placeholder="Summary..." onChange={handleChange}/>
                 {!error.summary ? null : <span>{error.summary}</span>}
-                <label>Nivel Health Score(0-100):</label>
+                <label>Health Score(0-100):</label>
                 <input type="number" id='health' value={recipe.health} name="health" onChange={handleChange}/>
                 {!error.health ? null : <span>{error.health}</span>}
+                <label>Instructions:</label>
                 <input name='steps' value={stepsArray.step} placeholder="Steps" onChange={handleChange}/>
                 <button type='button' onClick={insertSteps}>Añadir Paso</button>
+                <label>Picture:</label>
                 <input name='image' value={recipe.image} placeholder='Image' onChange={handleChange}/>
-                {diets.length && diets.map((d, index) => 
-                    <div key={index}>
-                        <input id={index} type="checkbox" value={d.name} onChange={dietSelector}/> 
-                        <label>{d.name}</label>
-                    </div>)}
+                <div className='add'>
+                    <input type="checkbox" id="add"/>
+                    <label for="add" className='btn-add'><span>Add Diet</span></label>
+                    <div className='diets'>
+                        {diets.length && diets.map((d, index) => 
+                            <div key={index}>
+                                <input className='input' id={index} type="checkbox" value={d.name} onChange={dietSelector}/> 
+                                <label for={index}>{d.name}</label>
+                            </div>)}</div>
+                    </div>
                 <button>Crear</button>
+                {creado && 
+                <DetailCard className='created'
+                    title={creado.title} 
+                    image={creado.image} 
+                    summary={creado.summary}
+                />}
             </form>
-            {creado && 
-            <DetailCard 
-                title={creado.title} 
-                image={creado.image} 
-                heatlh={creado.health}
-                summary={creado.summary}
-            />}
         </div>
     )
 

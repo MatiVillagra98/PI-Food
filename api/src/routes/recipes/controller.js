@@ -11,11 +11,8 @@ const recipesDetail = async (req, res, next) => {
     let diet = [];
     let food = [];
 
-    if (id === 'NotFound') {
-      res.status(404)
-    }
     //Si ID es numero busca en la API
-    else if (!isNaN(id)) {
+    if (!isNaN(id)) {
         await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
         .then(response => response.data)
         .then(res => {
@@ -34,10 +31,10 @@ const recipesDetail = async (req, res, next) => {
                 diets: diet.map(d => capitalize(d)),
                 summary: res.summary,
                 health: res.healthScore,
-                steps: res.analyzedInstructions[0].steps
+                steps: res.analyzedInstructions[0] ? res.analyzedInstructions[0].steps : null
             }]
         })
-        .catch(error=> next(error))
+        .catch(error => console.log(error.message))
     } 
     //Si id es string busca en la DB
     else {
@@ -58,9 +55,8 @@ const recipesDetail = async (req, res, next) => {
         const stepsToArray = [];
         food[0].steps.map(s => stepsToArray.push(JSON.parse(s)))
         food[0].steps = stepsToArray
-
     }
-    if(!food){
+    if(!food){715594
         next('Error en la base de Datos')
     } else {
         res.status(200).send(food)
@@ -11430,14 +11426,14 @@ const getRecipes = async (req, res, next) => {
     //Uno el array de API con DB
     const foodListMerge = foodListApi.concat(foodListDb);
     if(foodListMerge.length != 0) {
-        res.status(200).send(foodListMerge);
+        res.status(202).send(foodListMerge);
     }
     else {
       let notFound = [{
         id: 'NotFound',
         image: 'https://wetaca.com/images/404.png'
       }];
-      res.send(notFound)
+      res.status(200).send(notFound)
     }
 };
 

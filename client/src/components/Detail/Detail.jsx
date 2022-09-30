@@ -11,14 +11,11 @@ const Detail = (props) => {
     const dispatch = useDispatch();
     const id = props.match.params.id
     const detail = useSelector(state => state.recipeDetail)
-    const error = useSelector(state => state.error)
 
     React.useEffect(() => {
         dispatch(getRecipeDetail(id))
         .catch(error => console.log(error))
     },[dispatch, id]);
-
-    console.log(error.status)//return ( <Redirect to='/404'/> )
 
     return (
         <div className='detail'>
