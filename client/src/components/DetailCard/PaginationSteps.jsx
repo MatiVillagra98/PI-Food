@@ -6,7 +6,6 @@ const PaginationSteps = (props) => {
     let steps = props.steps;
 
     const [paginated, setPaginated] = React.useState({page: 0, toShow: steps[0]})
-    console.log(steps[0])
 
     const totalPages = steps.length
 
@@ -30,17 +29,26 @@ const PaginationSteps = (props) => {
         prevStep()
     },[props.steps]); //eslint-disable-line
     
-    return(
-        <div className='steps'>
-            <div>
-                <h2>Step N° {paginated.toShow.number}</h2>
-                <h2>{paginated.toShow.step}</h2>
+    if(paginated.toShow === undefined) {
+        return (
+            <div className='steps'>
+                <h2>Sin datos de preparacion</h2>
             </div>
-            <h3>Step {actualPage} of {totalPages}</h3>
-            <button onClick={prevStep}>Prev Step</button>
-            <button onClick={nextStep}>Next Step</button>
-        </div>
-    )
+        )
+    }
+    else {
+        return(
+            <div className='steps'>
+                <div>
+                    <h2>Step N° {paginated.toShow.number}</h2>
+                    <h2>{paginated.toShow.step}</h2>
+                </div>
+                <h3>Step {actualPage} of {totalPages}</h3>
+                <button onClick={prevStep}>Prev Step</button>
+                <button onClick={nextStep}>Next Step</button>
+            </div>
+        )
+    }
 }
 
 export default PaginationSteps;

@@ -6,7 +6,7 @@ const { capitalize, repetidos } = require('../../functions');
 let createId = 0;
 const { createDiets } = require('../diets/controller')
 
-const recipesDetail = async (req, res, next) => {
+const recipesDetail = async (req, res) => {
     const { id } = req.params;
     let diet = [];
     let food = [];
@@ -16,55 +16,54 @@ const recipesDetail = async (req, res, next) => {
         await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
         .then(response => response.data)
         .then(res => {
-            //Uso el array de las diets de la respuesta
-            diet = res.diets;  
-            //Itera en cada propiedad de respuesta y pusheo las dietas true que no esten agregadas
-            for (const property in res) {      
-                if ( res[property] === true && !diet.includes(property) ){
-                    diet.push(property)
-                }
+          //Uso el array de las diets de la respuesta
+          diet = res.diets;  
+          //Itera en cada propiedad de respuesta y pusheo las dietas true que no esten agregadas
+          for (const property in res) {      
+            if ( res[property] === true && !diet.includes(property) ){
+              diet.push(property)
             }
-            food = [{
-                image: res.image,
-                title: res.title,
-                type: res.dishTypes,
-                diets: diet.map(d => capitalize(d)),
-                summary: res.summary,
-                health: res.healthScore,
-                steps: res.analyzedInstructions[0] ? res.analyzedInstructions[0].steps : null
-            }]
+          }
+          food = [{
+            id: res.id,
+            image: res.image,
+            title: res.title,
+            type: res.dishTypes,
+            diets: diet.map(d => capitalize(d)),
+            summary: res.summary,
+            health: res.healthScore,
+            steps: res.analyzedInstructions[0] ? res.analyzedInstructions[0].steps : null
+          }]
+          res.status(200).send(food)
         })
-        .catch(error => console.log(error.message))
+        .catch(error => res.status(505).send(error))
     } 
     //Si id es string busca en la DB
     else {
-        food.push(await Recipe.findByPk(id, {
-            include: [{
-                model: Diet, 
-                as: 'diet',
-                attributes: ["name"], 
-                through: {
-                  attributes: []
-                }
-            }]
-        }))
-        const dietsToArray = []
-        const diets = food[0].diet
-        diets.map(d => dietsToArray.push(d.dataValues.name))
-        food[0].dataValues.diets = dietsToArray;
-        const stepsToArray = [];
-        food[0].steps.map(s => stepsToArray.push(JSON.parse(s)))
-        food[0].steps = stepsToArray
-    }
-    if(!food){715594
-        next('Error en la base de Datos')
-    } else {
-        res.status(200).send(food)
+      food.push(await Recipe.findByPk(id, {
+        include: [{
+          model: Diet, 
+          as: 'diet',
+          attributes: ["name"], 
+          through: {
+            attributes: []
+          }
+        }]
+      }))
+      const dietsToArray = []
+      const diets = food[0].diet
+      diets.map(d => dietsToArray.push(d.dataValues.name))
+      food[0].dataValues.diets = dietsToArray;
+      const stepsToArray = [];
+      food[0].steps.map(s => stepsToArray.push(JSON.parse(s)))
+      food[0].steps = stepsToArray;
+      res.status(200).send(food)
     }
 };
 
 
-const getRecipes = async (req, res, next) => {
+const getRecipes = async (req, res) => {
+  try {
     let name = req.query.name;
     //Hago los 10 pedidos a la API y meto en array
     let promiseLoop = [
@@ -11389,15 +11388,15 @@ const getRecipes = async (req, res, next) => {
     let foodListApi = [];
 
     // await Promise.all(promiseLoop)
-    //     .then(data => {
-        promiseLoop.map(d => {
-                for (let i = 0; i < d.results.length; i++) {
-                    d.results[i].diets = d.results[i].diets.map(d => capitalize(d)) 
-                    if(!repetidos(foodListApi, d.results[i])) { //Funcion repetidos para meter los que no estan
-                        foodListApi.push(d.results[i])  
-                    } 
-                }
-            })
+    //  .then(data => {
+          promiseLoop.map(d => {
+            for (let i = 0; i < d.results.length; i++) {
+              d.results[i].diets = d.results[i].diets.map(d => capitalize(d)) 
+              if(!repetidos(foodListApi, d.results[i])) { //Funcion repetidos para meter los que no estan
+                foodListApi.push(d.results[i])  
+              } 
+            }
+          })
         // })
         // .catch(error => next(error));
 
@@ -11435,22 +11434,26 @@ const getRecipes = async (req, res, next) => {
       }];
       res.status(200).send(notFound)
     }
+  }
+  catch (error) {
+    res.status(500).send(error.message)
+  }
 };
 
 const createRecipe = async (req, res) => {
     await createDiets();
-    const { title, summary, health, diet } = req.body;
+    const { title, summary, diet } = req.body;
     req.body.id = createId;
     try {
-        if (!title || !summary || !health) {
-            return res.status(404).send("Falta enviar datos obligatorios");
+        if (!title || !summary ) {
+          return res.status(400).send("Falta enviar datos obligatorios");
         } else {
-            const food = await Recipe.create(req.body);
-            await food.setDiet(diet);
-            res.status(201).send(food)
+          const food = await Recipe.create(req.body);
+          await food.setDiet(diet);
+          res.status(201).send(food)
         }
     } catch (error) {
-        res.status(500).send(console.log(error))
+      res.status(500).send(error.message)
     }
     createId++
 };
@@ -11460,3 +11463,4 @@ module.exports = {
     getRecipes, 
     createRecipe
 }
+

@@ -7,6 +7,13 @@
     padding: 7px;
 }
 
+.steps button {
+    font-family: 'Fredericka the Great';
+    width: 13vh;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 1020px) {
     .steps {
         width: 100%

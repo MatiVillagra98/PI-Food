@@ -21,11 +21,11 @@ const createDiets = async () => {
     }
 }
 
-const getDiets = async ( req, res, next ) => {
+const getDiets = async ( req, res ) => {
     try {
         createDiets()
     } catch (error) {
-        console.log(error)
+        alert(error.message)
     }
     const dietsList = await Diet.findAll({attributes: ['name']});
     res.status(200).send(dietsList)

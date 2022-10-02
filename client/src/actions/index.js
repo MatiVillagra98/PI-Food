@@ -5,7 +5,9 @@ export const GET_RECIPES = 'GET_RECIPES';
 export const GET_DIETS = 'GET_DIETS';
 export const GET_RECIPE_DETAIL = 'GET_RECIPE_DETAIL';
 export const CREATE_RECIPE =  'CREATE_RECIPE';
-export const ERROR = 'ERROR'
+export const ERROR = 'ERROR';
+export const ADD_RECIPE_FAVORITE = 'ADD_RECIPE_FAVORITE';
+export const REMOVE_RECIPE_FAVORITE = 'REMOVE_RECIPE_FAVORITE'
 
 export function getRecipes(name) {
     if(!name) {
@@ -14,7 +16,8 @@ export function getRecipes(name) {
             .then(response => response.data)
             .then(response => {
                 dispatch({ type: GET_RECIPES, payload: response });
-            });
+            })
+            .catch(error => alert('Error en el servidor'))
         };
     } else {
         return function(dispatch) {
@@ -23,6 +26,7 @@ export function getRecipes(name) {
             .then(response => {
                 dispatch({ type: GET_RECIPES, payload: response });
             })
+            .catch(error => alert('Error en el servidor'))
         };
     }
 };
@@ -44,10 +48,7 @@ export function getRecipeDetail(id) {
         .then(response => {
             dispatch({ type: GET_RECIPE_DETAIL, payload: response });
         })
-        .catch(response => {
-            dispatch({type: ERROR, payload: response.data})
-            console.log(response.data)
-        })
+        .catch(error => alert('Error en el servidor'))
     };
 };
 
@@ -58,6 +59,21 @@ export function createRecipe(values, diets) {
         .then(response => response.data)
         .then(response => {
             dispatch({ type: CREATE_RECIPE, payload: response });
-        });
+        })
+        .catch(error => alert('Receta no creada, Error en la Base de Datos'))
     };
+};
+
+export function addRecipeFavorite(detail) {
+    return {
+        type: ADD_RECIPE_FAVORITE, 
+        payload: detail
+    }
+};
+
+export function removeRecipeFavorite(id) {
+    return {
+        type: REMOVE_RECIPE_FAVORITE,
+        payload: id
+    }
 };

@@ -6,19 +6,26 @@ import ToggleButton from '../Toggle/ToggleButton';
 import Paginated from '../Pagination/Pagination';
 import NavBar from '../NavBar/NavBar';
 import './Recipe.css';
+import Loading from '../Loading/Loading';
 
-const Recipe = () => {
+const Recipe = (props) => {
 
     const dispatch = useDispatch(); 
-    const recipes = useSelector(state => state.recipes)
+    let recipes = useSelector(state => state.recipes)
     const [state, setState] = React.useState({name: ''})
     const [filterFood, setFilterFood] = React.useState([])
     const [order, setOrder] = React.useState(true)
+    const [loading, setLoading] = React.useState(true)
+
+    if( props.fav ) {
+        recipes = props.fav
+    }
 
     React.useEffect(() => {
         dispatch(getRecipes())
+        .then(setLoading(false))
         .catch(error => console.log(error))
-    },[dispatch]);//eslint-disable-line
+    },[dispatch]);
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -33,6 +40,7 @@ const Recipe = () => {
 
     return (
         <div className='recipe'>
+            {loading && <Loading/>}
             <div><NavBar/></div>
             <form onSubmit={handleSubmit} className='search'>
                 <input name='buscar' placeholder='Buscar...' value={state.name} onChange={handleChange}></input>

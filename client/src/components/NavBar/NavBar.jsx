@@ -28,6 +28,9 @@ export default function NavBar() {
                     <Link to='/createRecipe' name='create' className='btn'>
                         <button className='btn' name='create'>Crear Receta</button>
                     </Link>
+                    <Link to='/fav'>
+                        <button className='btn' name='fav'>❤</button>
+                    </Link>
                 </ul>
             </nav>
             <Link to='/' className='change'>

@@ -20,6 +20,7 @@ const Paginated = (props) => {
         const firstIndex = nextPage * 9;
         if(firstIndex >= recipesToShow.length) return;
         setPaginated({page: nextPage, toShow: [...recipesToShow].splice(firstIndex, 9)});
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     };
 
     function prevPage() {
@@ -27,6 +28,7 @@ const Paginated = (props) => {
         if (prevPage < 0) return;
         const firstIndex = prevPage * 9;
         setPaginated({page: prevPage, toShow: [...recipesToShow].splice(firstIndex, 9)});
+        window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
     React.useEffect(() => {

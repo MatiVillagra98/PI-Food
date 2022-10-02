@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRecipeDetail } from '../../actions/index';
 import NavBar from '../NavBar/NavBar';
 import './Detail.css'
-
+import Loading from '../Loading/Loading';
 
 const Detail = (props) => {
 
     const dispatch = useDispatch();
-    const id = props.match.params.id
-    const detail = useSelector(state => state.recipeDetail)
+    const detail = useSelector(state => state.recipeDetail);
+    const id = props.match.params.id;
 
     React.useEffect(() => {
+        window.scrollTo({top: 0})
         dispatch(getRecipeDetail(id))
         .catch(error => console.log(error))
     },[dispatch, id]);
@@ -20,9 +21,9 @@ const Detail = (props) => {
     return (
         <div className='detail'>
             <div><NavBar/></div>
-            {detail.length &&
+            {detail.length > 0 ?
                 <DetailCard 
-                    key={detail.id} 
+                    id={id}
                     image={detail[0].image} 
                     title={detail[0].title} 
                     diets={detail[0].diets} 
@@ -30,7 +31,8 @@ const Detail = (props) => {
                     summary={detail[0].summary}
                     health={detail[0].health}
                     steps={detail[0].steps}
-                />
+                /> :
+                <Loading/>
             }
         </div>
     )

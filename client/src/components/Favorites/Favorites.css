@@ -1,0 +1,12 @@
+.noFavorites {
+    font-family: 'Fredericka the Great';
+    background-image: url('../Recipe/fondo-recipe.jpg');
+}
+
+.noFavorites h2 {
+    background-color: rgba(212, 212, 212, 0.637);
+    height: 50vh;
+    font-size: 5vh;
+    margin: 10vh;
+    padding: 15vh;
+}

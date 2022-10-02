@@ -9,7 +9,7 @@ const CreateRecipe = () => {
 
     const dispatch = useDispatch();
     const diets = useSelector(state => state.diets)
-    const [recipe, setRecipe] = React.useState({title: '', summary: '', health: '', steps: [], image:''});
+    const [recipe, setRecipe] = React.useState({title: '', summary: '', health: 0, steps: [], image:''});
     const [error, setError] = React.useState({name: '', summary: '', healthScore: ''});
     const [creado, setCreado] = React.useState('')
     const [stepsArray, setSteps] = React.useState({step: ''})
@@ -121,7 +121,7 @@ const CreateRecipe = () => {
                 <div className='add'>
                     <input type="checkbox" id="add"/>
                     <label for="add" className='btn-add'><span>Add Diet</span></label>
-                    <div className='diets'>
+                    <div className='diets-create'>
                         {diets.length && diets.map((d, index) => 
                             <div key={index}>
                                 <input className='input' id={index} type="checkbox" value={d.name} onChange={dietSelector}/> 

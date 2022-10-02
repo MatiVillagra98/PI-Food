@@ -1,11 +1,20 @@
-import { CREATE_RECIPE, GET_DIETS, GET_RECIPES, GET_RECIPE_DETAIL, ERROR } from "../actions";
+import { 
+    CREATE_RECIPE, 
+    GET_DIETS, 
+    GET_RECIPES, 
+    GET_RECIPE_DETAIL, 
+    ERROR, 
+    ADD_RECIPE_FAVORITE, 
+    REMOVE_RECIPE_FAVORITE 
+} from "../actions";
 
 const initialState = {
     recipeDetail: [],
     recipes: [],
     diets: [],
     recipeCreated: [],
-    error: ''
+    error: '',
+    favorites: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -34,6 +43,16 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 error: action.payload
+            }
+        case ADD_RECIPE_FAVORITE:
+            return {
+                ...state,
+                favorites: state.favorites.concat(action.payload)
+            }
+        case REMOVE_RECIPE_FAVORITE:
+            return {
+                ...state,
+                favorites: state.favorites.filter(recipe => recipe.id !== action.payload)
             }
         default:
             return state;
