@@ -11453,8 +11453,8 @@ const createRecipe = async (req, res) => {
           res.status(201).send(food)
         }
     } catch (error) {
-      res.status(500).send(error.message)
-    }
+      res.status(505).send(error.message)
+    } 
     createId++
 };
 
