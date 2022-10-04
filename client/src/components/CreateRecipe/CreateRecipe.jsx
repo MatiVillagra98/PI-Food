@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createRecipe, getDiets } from '../../actions/index';
+import { getDiets } from '../../actions/index';
 import DetailCard from '../DetailCard/DetailCard';
 import NavBar from '../NavBar/NavBar';
 import './CreateRecipe.css'
+const axios = require('axios');
 
 const CreateRecipe = () => {
 
@@ -70,7 +71,6 @@ const CreateRecipe = () => {
         }
     }
 
-    //Formularios de mas datos
     function handleSubmit(e) {
         e.preventDefault()
 
@@ -79,12 +79,15 @@ const CreateRecipe = () => {
             for (let i = 4; i <= 15; i++) {
                 e.target[i].checked = false
             }
-
-            dispatch(createRecipe(recipe, dietsArray))
+            recipe.diet = dietsArray
+            axios.post(`http://localhost:3001/recipes`, recipe)
+            .then(response => response.data)
+            .then(response => {
+                alert('creado')
+            })
+            .catch(error => alert('Receta no creada, Error en la Base de Datos'))
             setRecipe({title: '', summary: '', health: '', steps: ''})
             setCreado({title: recipe.title, summary: recipe.summary, health: recipe.health, image: recipe.image})
-            alert('creado')
-
         }
         else {
             alert('Faltan Datos obligatorios')
@@ -115,7 +118,7 @@ const CreateRecipe = () => {
                 {!error.health ? null : <span>{error.health}</span>}
                 <label>Instructions:</label>
                 <input name='steps' value={stepsArray.step} placeholder="Steps" onChange={handleChange}/>
-                <button type='button' onClick={insertSteps}>Añadir Paso</button>
+                <button type='button' onClick={insertSteps}>Add Step</button>
                 <label>Picture:</label>
                 <input name='image' value={recipe.image} placeholder='Image' onChange={handleChange}/>
                 <div className='add'>
@@ -128,7 +131,7 @@ const CreateRecipe = () => {
                                 <label for={index}>{d.name}</label>
                             </div>)}</div>
                     </div>
-                <button>Crear</button>
+                <button>Create</button>
                 {creado && 
                 <DetailCard className='created'
                     title={creado.title} 

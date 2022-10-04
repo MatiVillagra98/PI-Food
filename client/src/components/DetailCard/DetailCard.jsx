@@ -16,7 +16,6 @@ const DetailCard = (props) => {
     React.useEffect(() => {
         favorites.some(r => r.id === id) ? setButton('fav') : setButton('noFav')
     },[]);//eslint-disable-line
-
     function addFavorite(detail) {
         dispatch(addRecipeFavorite(detail))
     }
@@ -46,7 +45,7 @@ const DetailCard = (props) => {
                 <span className='summary'>{ReactHtmlParser(props.summary)}</span>
                 {props.type && <h3 className='type'>Type {props.type}</h3>}
                 {props.diets && <div className='diets'>{props.diets.map(d => <h3 className='diet' key={Math.random()}>{d}</h3>)}</div>}
-                {props.health !== 0 && <h2 className='health'>Health Level: {props.health}</h2>}
+                {props.health && <h2 className='health'>Health Level: {props.health}</h2>}
                 {props.steps && <PaginationSteps steps={props.steps}/>}
             </div>
     );

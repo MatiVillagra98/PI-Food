@@ -10,15 +10,14 @@ import Error404 from './components/Error/Error404';
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route exact path = '/' component={Landing}/>
-        <Route exact path = '/home' component={Recipe} />
-        <Route exact path = '/detail/:id' component={Detail}/>
-        <Route exact path = '/createRecipe' component={CreateRecipe}/>
-        <Route exact path = '/fav' component={Favorites} />
-        <Route component={Error404}/>
-      </Switch>
-    
+    <Switch>
+      <Route exact path = '/' component={Landing}/>
+      <Route exact path = '/home' component={Recipe} />
+      <Route exact path = '/detail/:id' component={Detail}/>
+      <Route exact path = '/createRecipe' component={CreateRecipe}/>
+      <Route exact path = '/fav' component={Favorites} />
+      <Route component={Error404}/>
+    </Switch>
     </div>
   );
 }

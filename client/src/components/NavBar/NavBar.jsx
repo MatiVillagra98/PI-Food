@@ -26,7 +26,7 @@ export default function NavBar() {
                         <button className='btn' onClick={handleClick} name='home'>HOME</button>
                     </Link>
                     <Link to='/createRecipe' name='create' className='btn'>
-                        <button className='btn' name='create'>Crear Receta</button>
+                        <button className='btn' name='create'>Create Recipe</button>
                     </Link>
                     <Link to='/fav'>
                         <button className='btn' name='fav'>❤</button>

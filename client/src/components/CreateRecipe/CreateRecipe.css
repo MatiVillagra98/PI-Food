@@ -113,9 +113,9 @@
 
 }
 
-#add:checked ~ .diets {
+#add:checked ~ .diets-create  {
     visibility: visible;
-    height: 14vh;
+    height: 38vh;
     font-size: 2.5vh;
 }
 
@@ -129,7 +129,7 @@
     cursor: pointer;
 }
 
-.diets .input {
+.diets-create .input {
     width: 2vh;
     height: 2vh;
     border-radius: 7px;
@@ -143,9 +143,9 @@
 
 @media only screen and (max-width: 800px) {
 
-    #add:checked ~ .diets {
+    #add:checked ~ .diets-create {
         visibility: visible;
-        height: 21.5vh;
+        height: 37.5vh;
     }
 
 }
@@ -162,18 +162,18 @@
         font-size: 4vh;
     }
 
-    .diets {
+    .diets-create {
         font-size: 3vh;
         width: 45vh;
         top: 0;
     }
 
-    .diets .input {
+    .diets-create .input {
         height: 2.5vh;
         width: 2.5vh;
     }
 
-    #add:checked ~ .diets {
+    #add:checked ~ .diets-create {
         visibility: visible;
         height: 60.4vh;
         font-size: 4vh;

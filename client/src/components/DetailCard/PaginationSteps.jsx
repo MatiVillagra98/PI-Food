@@ -32,7 +32,7 @@ const PaginationSteps = (props) => {
     if(paginated.toShow === undefined) {
         return (
             <div className='steps'>
-                <h2>Sin datos de preparacion</h2>
+                <h2>No info</h2>
             </div>
         )
     }

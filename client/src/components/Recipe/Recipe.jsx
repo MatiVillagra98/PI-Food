@@ -43,12 +43,12 @@ const Recipe = (props) => {
             {loading && <Loading/>}
             <div><NavBar/></div>
             <form onSubmit={handleSubmit} className='search'>
-                <input name='buscar' placeholder='Buscar...' value={state.name} onChange={handleChange}></input>
-                <button>Buscar</button>
+                <input name='buscar' placeholder='Search...' value={state.name} onChange={handleChange}></input>
+                <button>Search</button>
             </form>
             <div className='filters'>
                 <input type="checkbox" id="show" />
-                <label for="show" className='btn-show'><span>Filtrar</span></label>
+                <label for="show" className='btn-show'><span>Filters</span></label>
                 <div className='hidden'>
                     <FilterDiets setState={setFilterFood} state={filterFood} recipes={recipes}/>
                     <ToggleButton setFood={setFilterFood} filterFood={filterFood} setOrder={setOrder} order={order} recipes={recipes} />

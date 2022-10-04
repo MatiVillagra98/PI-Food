@@ -1,5 +1,4 @@
 import { 
-    CREATE_RECIPE, 
     GET_DIETS, 
     GET_RECIPES, 
     GET_RECIPE_DETAIL, 
@@ -12,7 +11,6 @@ const initialState = {
     recipeDetail: [],
     recipes: [],
     diets: [],
-    recipeCreated: [],
     error: '',
     favorites: []
 };
@@ -33,11 +31,6 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 recipeDetail: action.payload
-            }
-        case CREATE_RECIPE:
-            return {
-                ...state,
-                recipeCreated: action.payload 
             }
         case ERROR: 
             return {

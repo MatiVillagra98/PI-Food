@@ -7,7 +7,7 @@ const Error404 = (props) => {
     return (
         <div>
             <NavBar/>
-            <img src="https://www.clixpert.com.au/blog/wp-content/uploads/2020/10/custom-404-page.png" alt="MDN" className='not-found'></img>
+            <img src="https://www.clixpert.com.au/blog/wp-content/uploads/2020/10/custom-404-page.png" alt="404" className='not-found'></img>
         </div>
     );
 };

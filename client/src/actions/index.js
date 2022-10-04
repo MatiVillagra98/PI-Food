@@ -4,7 +4,6 @@ const axios = require('axios');
 export const GET_RECIPES = 'GET_RECIPES';
 export const GET_DIETS = 'GET_DIETS';
 export const GET_RECIPE_DETAIL = 'GET_RECIPE_DETAIL';
-export const CREATE_RECIPE =  'CREATE_RECIPE';
 export const ERROR = 'ERROR';
 export const ADD_RECIPE_FAVORITE = 'ADD_RECIPE_FAVORITE';
 export const REMOVE_RECIPE_FAVORITE = 'REMOVE_RECIPE_FAVORITE'
@@ -52,17 +51,6 @@ export function getRecipeDetail(id) {
     };
 };
 
-export function createRecipe(values, diets) {
-    values.diet = diets
-    return function(dispatch) {
-        return axios.post(`http://localhost:3001/recipes`, values)
-        .then(response => response.data)
-        .then(response => {
-            dispatch({ type: CREATE_RECIPE, payload: response });
-        })
-        .catch(error => alert('Receta no creada, Error en la Base de Datos'))
-    };
-};
 
 export function addRecipeFavorite(detail) {
     return {

@@ -6,7 +6,7 @@ const { Recipe, conn } = require('../../src/db.js');
 
 const agent = session(app);
 const recipe = {
-  id: 1,
+  id: '123db',
   title: 'Milanea a la napolitana',
   summary: 'Descripcion de receta'
 };
@@ -18,19 +18,24 @@ describe('Recipe routes', () => {
   }));
   beforeEach(() => Recipe.sync({ force: true })
     .then(() => Recipe.create(recipe)));
-  // describe('GET /recipes', () => {
-  //   xit('should get 202', () =>
-  //     agent.get('/recipes').expect(202)  
-  //   ); 
-  // });
-  // describe('GET /recipes/:id', () => {  
-  //   xit('should get 200', () =>  
-  //     agent.get('/recipes/1db').expect(202)
-  //   );  
-  // }); 
-  describe('POST /recipes', () => {
-    it('should get 200', () =>
-      agent.post('/recipes').send({ title: 'me', summary: '123' }).expect(202)    
+    describe('GET /recipes', () => {
+      it('should get 202', () =>
+        agent.get('/recipes').expect(202)
+      );
+    });
+    describe('GET /recipes/:id', () => {  
+      it('should get 200', () =>  
+        agent.get('/recipes/716426').then((res) => {
+        expect(res.body[0].title).to.be.equal('Cauliflower, Brown Rice, and Vegetable Fried Rice')
+        }) 
+      );
+    }); 
+  describe('POST /recipes', () => { 
+    it('should get 201 if recipe is created', () => 
+      agent.post('/recipes').send({ 
+        title: 'Receta de prueba', 
+        summary: 'Receta para prueba' 
+      }).expect(201)     
     ); 
   }); 
 });   

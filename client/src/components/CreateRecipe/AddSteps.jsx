@@ -18,7 +18,7 @@ const AddStep = (props) => {
         <div>
             <form onSubmit={handleSubmit}>
                 <input name='steps' placeholder="Steps" onChange={handleChange}></input>
-                <button>Otro Paso</button>
+                <button>Add more steps</button>
             </form>
         </div>
     )

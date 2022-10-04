@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -L",
-    "test": "mocha -w ./tests/**/*.spec.js"
+    "test": "mocha -w ./tests/**/*.spec.js --timeout 10000"
   },
   "author": "Henry",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "enzyme": "^3.11.0",
     "express": "^4.17.1",
     "fetch": "^1.1.0",
     "morgan": "^1.10.0",
