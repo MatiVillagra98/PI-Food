@@ -20,7 +20,7 @@ const Paginated = (props) => {
         const firstIndex = nextPage * 9;
         if(firstIndex >= recipesToShow.length) return;
         setPaginated({page: nextPage, toShow: [...recipesToShow].splice(firstIndex, 9)});
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
     function prevPage() {

@@ -11,7 +11,7 @@ export const REMOVE_RECIPE_FAVORITE = 'REMOVE_RECIPE_FAVORITE'
 export function getRecipes(name) {
     if(!name) {
         return function(dispatch) {
-            return axios(`http://localhost:3001/recipes`)
+            return axios(`/recipes`)
             .then(response => response.data)
             .then(response => {
                 dispatch({ type: GET_RECIPES, payload: response });
@@ -20,7 +20,7 @@ export function getRecipes(name) {
         };
     } else {
         return function(dispatch) {
-            return axios(`http://localhost:3001/recipes?name=${name}`)
+            return axios(`/recipes?name=${name}`)
             .then(response => response.data)
             .then(response => {
                 dispatch({ type: GET_RECIPES, payload: response });
@@ -32,7 +32,7 @@ export function getRecipes(name) {
 
 export function getDiets() {
     return function(dispatch) {
-        return axios(`http://localhost:3001/diets`)
+        return axios(`/diets`)
         .then(response => response.data)
         .then(response => {
             dispatch({ type: GET_DIETS, payload: response });
@@ -42,7 +42,7 @@ export function getDiets() {
 
 export function getRecipeDetail(id) {
     return function(dispatch) {
-        return axios(`http://localhost:3001/recipes/${id}`)
+        return axios(`/recipes/${id}`)
         .then(response => response.data)
         .then(response => {
             dispatch({ type: GET_RECIPE_DETAIL, payload: response });

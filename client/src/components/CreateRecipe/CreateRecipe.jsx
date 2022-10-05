@@ -80,14 +80,11 @@ const CreateRecipe = () => {
                 e.target[i].checked = false
             }
             recipe.diet = dietsArray
-            axios.post(`http://localhost:3001/recipes`, recipe)
-            .then(response => response.data)
-            .then(response => {
-                alert('creado')
-            })
+            axios.post(`/recipes`, recipe)
+            .then(response => alert('Recipe crated'))
             .catch(error => alert('Receta no creada, Error en la Base de Datos'))
             setRecipe({title: '', summary: '', health: '', steps: ''})
-            setCreado({title: recipe.title, summary: recipe.summary, health: recipe.health, image: recipe.image})
+            setCreado({title: recipe.title, summary: recipe.summary, image: recipe.image})
         }
         else {
             alert('Faltan Datos obligatorios')
